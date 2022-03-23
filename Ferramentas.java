@@ -1,3 +1,12 @@
+/*
+@author: Leon Júnio Martins Ferreira
+@version: 1.0.1
+22/03/2022
+Open Source License - Free to use
+*/
+
+//TODAS AS FUNÇÕES SÃO ESTATICAS (All methods are static)
+//NÃO INSTANCIE ESSA CLASSE (please do not create a instance from this class)
 class Ferramentas {
 	/**
 	 * Função que simula a String.replace() e a String.trim()
