@@ -1,13 +1,56 @@
 /*
 @author: Leon Júnio Martins Ferreira
-@version: 1.0.1
-22/03/2022
+@version: 1.1.1
+07/04/2022
 Open Source License - Free to use
 */
 
 //TODAS AS FUNÇÕES SÃO ESTATICAS (All methods are static)
 //NÃO INSTANCIE ESSA CLASSE (please do not create a instance from this class)
 class Ferramentas {
+	// Função que checa se uma String é antes ou depois de outra String
+	// Gerando assim uma verificação de ordem alfabética
+	// frase --> String que vai ser comparada com outra
+	// ver --> String que vai ser usada como comparação
+	public static boolean isStrMaior(String frase, String ver) {
+		boolean resp = false;
+		for (int i = 0; i < ver.length(); i++) {
+			if (frase.charAt(i) < ver.charAt(i)) {
+				resp = false;
+				i = ver.length();
+			} else if (frase.charAt(i) > ver.charAt(i)) {
+				resp = true;
+				i = ver.length();
+			} else if (i == ver.length()) {
+				if (ver.length() == frase.length()) {
+					resp = false;
+				} else {
+					resp = true;
+				}
+			}
+		}
+		return resp;
+	}
+
+	// Função para ler entre espaços dentro de uma frase
+	// No maximo dois espaços
+	public static String lerEntreSpaces(String frase) {
+		String resp = "";
+		boolean check = false;
+		for (int i = 0; i < frase.length(); i++) {
+			if (frase.charAt(i) == ' ') {
+				if (check) {
+					i = frase.length();
+				} else {
+					check = true;
+				}
+			} else if (check) {
+				resp += frase.charAt(i);
+			}
+		}
+		return resp;
+	}
+
 	/**
 	 * Função que simula a String.replace() e a String.trim()
 	 * 
@@ -109,6 +152,21 @@ class Ferramentas {
 					resp += frase.charAt(i);
 				}
 			}
+		}
+		return resp;
+	}
+
+	// Função que gera um arquivo de log contendo o total de comparações
+	// tempo de execução e a matricula do aluno definida na classe
+	public static boolean gerarLog(double inic, double fim, int comp) {
+		boolean resp = true;
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(getMatricula() + "_binario.txt"));
+			bw.write(getMatricula() + "\t" + (fim - inic) / 1000.0 + "\t" + comp);
+			bw.close();
+		} catch (IOException io) {
+			io.printStackTrace();
+			resp = false;
 		}
 		return resp;
 	}
@@ -341,6 +399,18 @@ class Ferramentas {
 			}
 		}
 		return conta;
+	}
+
+	// Metodo responsavel por formatar uma nova entrada de data
+	public static String formatDate(Date dt) {
+		String resp = "";
+		try {
+			SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy");
+			resp = sfd.format(dt);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resp;
 	}
 
 }
